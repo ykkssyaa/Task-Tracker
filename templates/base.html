@@ -14,6 +14,15 @@
     {% else %}
         <a href="{% url 'users:login' %}">Войти</a>
     {% endif %}
+
+    <nav>
+
+        <a href="{% url 'users:user_list' %}">Разработчики</a>
+        <a href="{% url 'tasks:project_list' %}">Проекты</a>
+
+    </nav>
+
+
     <hr>
 </header>
 

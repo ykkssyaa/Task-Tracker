@@ -5,8 +5,8 @@ class Project(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
     owner = models.ForeignKey('users.User', on_delete=models.CASCADE)
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField()
 
     def __str__(self):
         return self.name
@@ -15,8 +15,8 @@ class Project(models.Model):
 class Task(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(blank=True, null=True)
-    start_date = models.DateTimeField(blank=True, null=True)
-    end_date = models.DateTimeField()
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField()
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     owner = models.ForeignKey('users.User', on_delete=models.CASCADE)
 

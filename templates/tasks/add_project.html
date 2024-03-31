@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <a href="{% url 'tasks:project_list' %}">К списку проектов</a>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить проект</button>
+    </form>
+
+{% endblock %}
