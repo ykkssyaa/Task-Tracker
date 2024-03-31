@@ -7,7 +7,7 @@ def page_not_found(request, exception):
 
 
 def redirect_home(request):
-    return HttpResponseRedirect(reverse('tasks:projects_list'))
+    return HttpResponseRedirect(reverse('tasks:project_list'))
 
 
 def redirect_login(request):
