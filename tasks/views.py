@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, FormView, CreateView
 
 from tasks.forms import TaskForm, ProjectForm
-from tasks.models import Project
+from tasks.models import Project, Task
 
 
 class ProjectDetailView(DetailView):
@@ -53,3 +54,22 @@ class AddTaskView(FormView):
         context['title'] = f'Добавление задачи для {project.name}'
 
         return context
+
+
+class TaskListView(LoginRequiredMixin, ListView):
+    model = Task
+    template_name = 'tasks/task_list.html'
+    context_object_name = 'task_list'
+    extra_context = {'title': 'Список задач'}
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.role == 'director':
+            # Вывести все задачи для директора
+            return Task.objects.all()
+        elif user.role == 'teamlead':
+            # Вывести задачи только для проектов, где пользователь - тимлид
+            return Task.objects.filter(project__owner=user)
+        else:
+            # Вывести задачи, где пользователь - owner
+            return Task.objects.filter(owner=user)
