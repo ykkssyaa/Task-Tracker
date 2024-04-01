@@ -40,6 +40,7 @@ class UserPage(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = f'Профиль {self.kwargs['username']}'
+        username = self.kwargs['username']
+        context['title'] = f'Профиль {username}'
         return context
 
