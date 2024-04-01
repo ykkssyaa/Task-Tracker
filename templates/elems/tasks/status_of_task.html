@@ -1,0 +1,16 @@
+{% if task.owner.pk == request.user.pk or task.project.owner.pk == request.user.pk %}
+
+    <td>
+        <select id="select_status_{{ task.id }}" onchange="updateStatus('{{ task.id }}')">
+            {% for status in task.STATUS_CHOICES %}
+                <option value="{{ status.0 }}"
+                        {% if status.0 == task.status %}selected{% endif %}>{{ status.1 }}</option>
+            {% endfor %}
+        </select>
+        
+    </td>
+
+{% else %}
+    <td>{{ task.status }}</td>
+{% endif %}
+

@@ -11,7 +11,9 @@
     <p><strong>End Date:</strong> {{ project.end_date }}</p>
     
     <h2>Задачи:</h2>
+    {% if request.user.pk == project.owner.pk %}
     <a href="{% url 'tasks:add_task' pk=project.pk %}"> Добавить новую задачу </a>
+    {% endif %}
     
     {% include 'elems/tasks/task_list.html' with tasks=project.task_set.all %}
     

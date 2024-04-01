@@ -1,4 +1,5 @@
 {% load tags %}
+{% load static %}
 <table>
     <thead>
     <tr>
@@ -9,6 +10,7 @@
         <th>Status</th>
         <th>Priority</th>
         <th>Owner</th>
+        <th>Action</th>
     </tr>
     </thead>
     <tbody>
@@ -18,11 +20,21 @@
             <td>{{ task.description }}</td>
             <td>{{ task.start_date }}</td>
             <td>{{ task.end_date }}</td>
-            <td>{{ task.status }}</td>
+
+            {% include 'elems/tasks/status_of_task.html' %}
+
             <td>{{ task.priority }}</td>
             <td><a href="{% url 'users:user_page' username=task.owner.username %}">{{ task.owner.username }}</a></td>
-
+            <td>
+                {% if task.project.owner.pk == request.user.pk %}
+                    <button onclick="deleteTask('{{ task.id }}')">Delete</button>  <!-- Кнопка для удаления задачи -->
+                {% endif %}
+            </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+
+<meta name="csrf-token" content="{{ csrf_token }}">
+<script src="{% static 'js/update_status.js' %}"></script>
+<script src="{% static 'js/delete_task.js' %}"></script>

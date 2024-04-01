@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
+{% load tags %}
 {% block content %}
 
     <ul>
-        {% for user in object_list %}
+        {% for user in object_list|sort_by:"role" %}
             {% if not user.is_superuser %}
-                <li><a href="{% url 'users:user_page' username=user.username %}"> {{ user.username }}</a></li>
+                <li>
+                    <a href="{% url 'users:user_page' username=user.username %}">{{ user.username }}</a>
+                    <span>({{ user.get_role_display }})</span>
+                </li>
             {% endif %}
         {% endfor %}
     </ul>

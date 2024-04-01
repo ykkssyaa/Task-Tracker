@@ -1,4 +1,7 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, FormView, CreateView
@@ -54,3 +57,23 @@ class AddTaskView(FormView):
         context['title'] = f'Добавление задачи для {project.name}'
 
         return context
+
+
+def update_status(request, task_id):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        new_status = data.get('status')
+        task = Task.objects.get(id=task_id)
+        task.status = new_status
+        task.save()
+        return JsonResponse({'success': True}, status=200)
+    return JsonResponse({'success': False})
+
+
+def delete_task(request, task_id):
+    try:
+        task = Task.objects.get(id=task_id)
+        task.delete()
+        return JsonResponse({'success': True})
+    except Task.DoesNotExist:
+        return JsonResponse({'success': False}, status=404)

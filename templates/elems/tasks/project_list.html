@@ -1,5 +1,26 @@
-    <ul>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Owner</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for project in projects %}
-            <li><a href="{% url 'tasks:project_detail' pk=project.pk %}">{{ project.name }}</a></li>
+            <tr>
+                <td><a href="{% url 'tasks:project_detail' pk=project.pk %}">{{ project.name }}</a></td>
+                <td>{{ project.description }}</td>
+                <td>
+                    <a href="{% url 'users:user_page' username=project.owner.username %}"> 
+                        {{ project.owner.username }}
+                    </a>
+                </td>
+                <td>{{ project.start_date }}</td>
+                <td>{{ project.end_date }}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </tbody>
+</table>
