@@ -1,0 +1,28 @@
+{% load tags %}
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+        <th>Priority</th>
+        <th>Owner</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for task in tasks|sort_by:'end_date' %}
+        <tr>
+            <td>{{ task.name }}</td>
+            <td>{{ task.description }}</td>
+            <td>{{ task.start_date }}</td>
+            <td>{{ task.end_date }}</td>
+            <td>{{ task.status }}</td>
+            <td>{{ task.priority }}</td>
+            <td><a href="{% url 'users:user_page' username=task.owner.username %}">{{ task.owner.username }}</a></td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

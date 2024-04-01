@@ -1,5 +1,22 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>{{ user_p.username }}</h1>
 
+    <h1>{{ user_p.username }}</h1>
+    <p>Email: {{ user_p.email }}</p>
+    <p>First Name: {{ user_p.first_name }}</p>
+    <p>Last Name: {{ user_p.last_name }}</p>
+    <p>Role: {{ user_p.get_role_display }}</p>
+
+    {% if user_p.role == 'teamlead' %}
+        <h2>Проекты</h2>
+        
+        {% include 'elems/tasks/project_list.html' with projects=user_p.project_set.all %}
+        
+    {% elif user_p.role == 'developer' %}
+        <h2>Задачи</h2>
+        
+        {% include 'elems/tasks/task_list.html' with tasks=user_p.task_set.all %}
+        
+    {% endif %}
+    
 {% endblock %}

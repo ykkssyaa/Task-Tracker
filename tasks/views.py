@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, FormView, CreateView
 
 from tasks.forms import TaskForm, ProjectForm
-from tasks.models import Project
+from tasks.models import Project, Task
 
 
 class ProjectDetailView(DetailView):

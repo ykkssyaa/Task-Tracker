@@ -3,10 +3,6 @@
 
     <a href="{% url 'tasks:add_project' %}">Создать новый проект</a>
 
-    <ul>
-        {% for project in projects %}
-            <li><a href="{% url 'tasks:project_detail' pk=project.pk %}">{{ project.name }}</a></li>
-        {% endfor %}
-    </ul>
+    {% include 'elems/tasks/project_list.html' with projects=projects %}
 
 {% endblock %}

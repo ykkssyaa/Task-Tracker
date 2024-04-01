@@ -37,3 +37,9 @@ class UserPage(DetailView):
         # Получаем объект пользователя по его имени пользователя (username)
         return get_object_or_404(User, username=username, is_superuser=False)
 
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f'Профиль {self.kwargs['username']}'
+        return context
+
