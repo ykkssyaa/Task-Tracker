@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
     
-    <a href="{% url 'tasks:project_detail' pk=project.pk %}">К проекту</a>
-    
-    <form method="post">
+    <a href="{% url 'tasks:project_detail' pk=project.pk %}" class="btn btn-secondary mb-3">К проекту</a>
+
+    <form method="post" class="task-form">
         {% csrf_token %}
         <input type="hidden" name="project" value="{{ project.pk }}">
         {{ form.as_p }}
-        <button type="submit">Add Task</button>
+        <button type="submit" class="btn btn-primary">Add Task</button>
     </form>
 
 {% endblock %}

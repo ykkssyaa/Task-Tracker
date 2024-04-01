@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <a href="{% url 'tasks:project_list' %}">К списку проектов</a>
+    <a href="{% url 'tasks:project_list' %}" class="btn btn-secondary mb-3">К списку проектов</a>
 
-    <form method="post">
+    <form method="post" class="project-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Добавить проект</button>
+        <button type="submit" class="btn btn-primary">Добавить проект</button>
     </form>
 
 {% endblock %}

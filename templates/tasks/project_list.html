@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
-    <a href="{% url 'tasks:add_project' %}">Создать новый проект</a>
+    <a href="{% url 'tasks:add_project' %}" class="btn btn-primary btn-lg">Создать новый проект</a>
 
     {% include 'elems/tasks/project_list.html' with projects=projects %}
 

@@ -24,7 +24,7 @@ class UserList(ListView):
     model = User
     template_name = 'users/list.html'
     context_object_name = 'users'
-    extra_context = {'title': 'User List'}
+    extra_context = {'title': 'Список пользователей'}
 
 
 class UserPage(DetailView):
