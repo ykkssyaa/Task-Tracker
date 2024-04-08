@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load tags %}
+{% block content %}
+
+    <a href="{% url 'tasks:project_detail' pk=project.pk %}" class="btn btn-secondary mb-3">К проекту</a>
+
+    <h1>Статистика проекта: {{ project.name }}</h1>
+    <p><strong>Тимлид проекта:</strong> {{ project_lead.username }}</p>
+    <p><strong>Всего задач в проекте:</strong> {{ total_tasks }}</p>
+    <p><strong>Выполнено задач:</strong> {{ completed_tasks }}</p>
+    <p><strong>Количество разработчиков на проекте:</strong> {{ num_developers }}</p>
+    <p><strong>Процент выполненных задач:</strong> {{ completion_percentage }}%</p>
+
+    <h2>Статистика задач для каждого разработчика:</h2>
+    <ul>
+        {% for developer in developers %}
+            <li>
+                <a href="{% url 'users:user_page' username=developer.username %}" class="fs-3">
+                    {{ developer.username }}
+                </a>
+                <ul>
+                    <li>Общее количество задач: {{ developer.total_tasks }}</li>
+                    <li>Количество не завершенных задач: {{ developer.num_incomplete_tasks }}</li>
+                    <li>Процент выполнения: {{ developer.completion_percentage }}%</li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

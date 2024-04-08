@@ -20,6 +20,14 @@ class TaskForm(ModelForm):
             'priority': 'Приоритет',
         }
 
+    def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
+        if 'instance' in kwargs:
+            task = kwargs['instance']
+            initial['start_date'] = task.start_date
+            initial['end_date'] = task.end_date
+        kwargs['initial'] = initial
+        super().__init__(*args, **kwargs)
 
 class ProjectForm(ModelForm):
     owner = ModelChoiceField(queryset=User.objects.filter(role='teamlead'), label='Team Lead')
@@ -37,3 +45,12 @@ class ProjectForm(ModelForm):
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date': DateInput(attrs={'type': 'date'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        initial = kwargs.get('initial', {})
+        if 'instance' in kwargs:
+            project = kwargs['instance']
+            initial['start_date'] = project.start_date
+            initial['end_date'] = project.end_date
+        kwargs['initial'] = initial
+        super().__init__(*args, **kwargs)

@@ -36,6 +36,7 @@
                     <div>
                     {% if task.project.owner.pk == request.user.pk %}
                         <button onclick="deleteTask('{{ task.id }}')" class="btn btn-danger">Delete</button> <!-- Кнопка для удаления задачи -->
+                        <a href="{% url 'tasks:update_task' pk=task.pk %}" class="btn btn-secondary">Edit</a>
                     {% endif %}
                     </div>
                 </td>

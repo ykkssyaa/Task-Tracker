@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load tags %}
 {% block content %}
-    
+
     <div class="container">
         <h1>{{ project.name }}</h1>
 
@@ -12,7 +12,8 @@
 
         <div class="mb-3 fs-5">
             <strong>Тимлид:</strong>
-            <p><a href="{% url 'users:user_page' username=project.owner.username %}">{{ project.owner.username }}</a></p>
+            <p><a href="{% url 'users:user_page' username=project.owner.username %}">{{ project.owner.username }}</a>
+            </p>
         </div>
 
         <div class="mb-3 ">
@@ -25,10 +26,22 @@
             <p>{{ project.end_date }}</p>
         </div>
 
+        {% if request.user.pk == project.owner.pk %}
+            <a href="{% url 'tasks:update_project' pk=project.pk %}"
+               class="btn btn-primary mb-3 btn-lg">Редактировать</a>
+        {% endif %}
+
+        {% if request.user.pk == project.owner.pk or request.user.role == 'director' %}
+            <a href="{% url 'tasks:project_statistics' project.pk %}"
+               class="btn btn-primary mb-3 btn-lg">Статистика</a>
+        {% endif %}
+
+        <hr>
         <h2>Задачи:</h2>
 
         {% if request.user.pk == project.owner.pk %}
-            <a href="{% url 'tasks:add_task' pk=project.pk %}" class="btn btn-primary mb-3 btn-lg">Добавить новую задачу</a>
+            <a href="{% url 'tasks:add_task' pk=project.pk %}" class="btn btn-primary mb-3 btn-lg">Добавить новую
+                задачу</a>
         {% endif %}
 
         {% include 'elems/tasks/task_list.html' with tasks=project.task_set.all %}
