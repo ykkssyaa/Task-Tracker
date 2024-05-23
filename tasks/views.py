@@ -43,7 +43,7 @@ class UpdateProjectView(UpdateView):
     context_object_name = 'task'
 
     def get_success_url(self):
-        return reverse_lazy('project_detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('tasks:project_detail', kwargs={'pk': self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
