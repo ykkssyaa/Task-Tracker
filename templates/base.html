@@ -32,7 +32,8 @@
     <nav class="col-md-4 text-end">
         <a href="{% url 'users:user_list' %}" class="btn btn-outline-primary">Разработчики</a>
         <a href="{% url 'tasks:project_list' %}" class="btn btn-outline-primary">Проекты</a>
-        {% if request.user.is_authenticated %}
+    
+        {% if request.user.is_authenticated and request.user.role != 'director' %}
             <a href="{% url 'users:user_page' username=user.username %}" class="btn btn-outline-primary">Ваши задачи</a>
         {% endif %}
     </nav>

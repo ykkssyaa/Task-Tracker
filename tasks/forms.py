@@ -48,9 +48,9 @@ class ProjectForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         initial = kwargs.get('initial', {})
-        if 'instance' in kwargs:
-            project = kwargs['instance']
-            initial['start_date'] = project.start_date
-            initial['end_date'] = project.end_date
+        instance = kwargs.get('instance')
+        if instance is not None:
+            initial['start_date'] = instance.start_date
+            initial['end_date'] = instance.end_date
         kwargs['initial'] = initial
         super().__init__(*args, **kwargs)
